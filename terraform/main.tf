@@ -4,7 +4,7 @@ provider "aws" {
 
 module "vpc" {
   source = "./modules/vpc"
-  region = var.region
+  region = var.vpc_region
 }
 
 module "security_groups" {

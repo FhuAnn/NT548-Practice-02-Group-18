@@ -1,4 +1,4 @@
-variable "region" {
-  type = string
-  default = "ap-southeast-1a"
+variable "availability_zone" {
+  description = "AZ for the subnet"
+  type        = string
 }
