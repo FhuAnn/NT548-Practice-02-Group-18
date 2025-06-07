@@ -1,4 +1,4 @@
 variable "region" {
   type = string
-  default = "ap-northeast-2"
+  default = "ap-southeast-1a"
 }

@@ -1,4 +1,4 @@
-resource "aws_instance" "example" {
+resource "aws_instance" "ec2" {
   ami           = "ami-003ce501eabea4d72"
   instance_type = "t2.micro"
   subnet_id     = var.subnet_id
@@ -15,8 +15,4 @@ resource "aws_instance" "example" {
   tags = {
     Name = "Terraform-EC2"
   }
-}
-
-output "public_ip" {
-  value = aws_instance.example.public_ip
 }
