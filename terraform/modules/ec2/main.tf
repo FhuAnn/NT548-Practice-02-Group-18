@@ -1,6 +1,6 @@
-resource "aws_instance" "ec2" {
-  ami           = "ami-003ce501eabea4d72"
-  instance_type = "t2.micro"
+resource "aws_instance" "ec2_intance" {
+  ami           = var.ami_id
+  instance_type = var.instance_type
   subnet_id     = var.subnet_id
   vpc_security_group_ids = [var.sg_id]
   metadata_options {
@@ -16,3 +16,4 @@ resource "aws_instance" "ec2" {
     Name = "Terraform-EC2"
   }
 }
+
