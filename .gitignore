@@ -2,3 +2,4 @@
 *.tfvars
 .terraform.lock.hcl
 terraform.tfstate.backup
+terraform-provider-aws_v5.99.1_x5.exe
