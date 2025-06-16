@@ -1,3 +1,12 @@
+terraform {
+  backend "s3" {
+    bucket         = "lab02-terraform-state-group18"
+    key            = "iam/terraform.tfstate"
+    region         = "ap-southeast-1"
+    use_lockfile = true
+  }
+}
+
 provider "aws" {
   region = var.region
 }
