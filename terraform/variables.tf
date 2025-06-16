@@ -5,12 +5,6 @@ variable "region" {
   description = "Region of VPC"
 }
 
-variable "bucket_name" {
-  type        = string
-  default     = "lab02-terraform-state-group18"
-  description = "S3 bucket name for storing Terraform state files"
-}
-
 variable "vpc_cidr" {
   type        = string
   default     = "192.168.0.0/16"
