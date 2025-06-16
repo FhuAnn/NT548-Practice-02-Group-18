@@ -27,15 +27,15 @@
 
 1. **Clone the Repository**
 ```sh
-git clone https://github.com/tramcandoit/NT548-Lab.git
-cd Terraform
+git clone https://github.com/FhuAnn/NT548-Practice02-Group18-P1-Terraform-GitHubActions.git
+cd terraform
 ```
 
 2. **Configure IAM role, IAM policy and instance profile for EC2 instance**
 - Direct to the aws_iam module folder:
 ```sh
 cd modules
-cd aws_iam
+cd iam
 ```
 - Modify the **default** section at **variables.tf** file *(read description at variables.tf file for details)* as your demand
 - Create resource:
