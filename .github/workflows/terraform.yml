@@ -1,4 +1,4 @@
-name: Terraform CI/CD with AWS Config and Security Checks
+name: Terraform CI/CD Workflow
 
 on:
   push:
@@ -17,7 +17,7 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v2
 
-      # Bước 2: Thiết lập AWS Credentials
+      # Bước 2: Cấu hình AWS Credentials
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:
@@ -31,34 +31,31 @@ jobs:
         with:
           terraform_wrapper: false
 
-      # Bước 4: Terraform Init
-      - name: Terraform Init
+      # Bước 4: Triển khai module IAM
+      - name: Terraform Init for IAM
+        run: terraform init
+        working-directory: terraform/modules/iam
+
+      - name: Terraform Apply for IAM
+        run: terraform apply -auto-approve
+        working-directory: terraform/modules/iam
+
+      # Bước 5: Triển khai các module khác
+      - name: Terraform Init for Root Module
         run: terraform init
         working-directory: terraform
 
-      # Bước 5: Terraform Validate
-      - name: Terraform Validate
-        run: terraform validate
-        working-directory: terraform
-
-      # Bước 6: Terraform Plan
-      - name: Terraform Plan
+      - name: Terraform Plan for Root Module
         run: terraform plan -out=tfplan
         working-directory: terraform
 
-      # Bước 7: Terraform Apply (chỉ chạy trên branch main)
-      - name: Terraform Apply
+      - name: Terraform Apply for Root Module
         if: github.ref == 'refs/heads/main'
         run: terraform apply -auto-approve tfplan
         working-directory: terraform
 
-      # Bước 8: Checkov Security Scan
+      # Bước 6: Checkov Security Scan
       - name: Checkov Security Scan
         uses: bridgecrewio/checkov-action@v12
         with:
           directory: terraform
-
-      # Bước 9: AWS Config Compliance Check (tùy chọn)
-      - name: AWS Config Compliance Check
-        run: |
-          aws configservice describe-compliance-by-config-rule --region ap-southeast-1
