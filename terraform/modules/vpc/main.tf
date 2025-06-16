@@ -3,7 +3,7 @@ provider "aws" {
 }
 
 locals {
-  project_name = "lab1-group13"
+  project_name = "lab2-group18"
 }
 
 #---------------------------------------------------------------#
@@ -16,6 +16,21 @@ resource "aws_vpc" "vpc" {
     Name = "${local.project_name}-vpc"
   }
 }
+
+# Thêm Flow Logging cho VPC - trivy fix
+resource "aws_flow_log" "vpc_flow_log" {
+  log_destination      = aws_cloudwatch_log_group.vpc_flow_log.arn # Hoặc S3 ARN nếu bạn muốn lưu vào S3
+  traffic_type         = "ALL" # Ghi lại tất cả lưu lượng (ingress và egress)
+  vpc_id               = aws_vpc.vpc.id
+  log_destination_type = "cloud-watch-logs" # Hoặc "s3" nếu bạn muốn lưu vào S3
+}
+
+# Tạo Log Group nếu sử dụng CloudWatch - trivy fix
+resource "aws_cloudwatch_log_group" "vpc_flow_log" {
+  name = "/aws/vpc/flow-logs/${local.project_name}-vpc"
+  retention_in_days = 30 # Thời gian lưu trữ log (có thể thay đổi)
+}
+
 
 resource "aws_subnet" "public_subnet" {
   vpc_id     = aws_vpc.vpc.id
@@ -59,16 +74,16 @@ resource "aws_default_security_group" "default-sg" {
 
   ingress {
     protocol  = -1
-    self      = true
     from_port = 0
     to_port   = 0
+    cidr_blocks = [] #trivy fix
   }
 
   egress {
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = []#trivy fix
   }
 
   tags = {

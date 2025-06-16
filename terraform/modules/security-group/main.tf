@@ -3,7 +3,7 @@ provider "aws" {
 }
 
 locals {
-  project_name = "lab1-group13"
+  project_name = "lab2-group18"
 }
 
 resource "aws_security_group" "public_ssh-sg" {
@@ -19,7 +19,7 @@ resource "aws_security_group" "public_ssh-sg" {
   egress {
     from_port   = 0
     to_port     = 0
-    protocol    = "-1"
+    protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
   tags = {
@@ -40,7 +40,7 @@ resource "aws_security_group" "private_ssh-sg" {
   egress {
     from_port   = 0
     to_port     = 0
-    protocol    = "-1"
+    protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
   tags = {

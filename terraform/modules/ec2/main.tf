@@ -11,6 +11,8 @@ resource "aws_instance" "ec2_instance" {
   #count         = each.value.count
   ami           = each.value.ami
   instance_type = each.value.instance_type
+  ebs_optimized = true #trivy fix
+  monitoring    = true # trivy fix
   root_block_device {
     volume_size           = each.value.root_block_device.volume_size
     volume_type           = each.value.root_block_device.volume_type
@@ -38,10 +40,9 @@ resource "aws_eip" "elastic_ips" {
   }
 }
 
-# Resource to associate Elastic IPs with instances where associate_elastic_ip = true
 resource "aws_eip_association" "eip_association" {
-  for_each = { for idx, config in var.instances_configuration : idx => config if config.associate_elastic_ip }
+  for_each = aws_eip.elastic_ips
 
   instance_id   = aws_instance.ec2_instance[each.key].id
-  allocation_id = aws_eip.elastic_ips[each.key].id
+  allocation_id = each.value.id
 }
