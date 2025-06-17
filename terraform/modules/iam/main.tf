@@ -56,6 +56,22 @@ resource "aws_iam_instance_profile" "ec2_instance_profile" {
 
 
 #trivy fix - Create an IAM Role for VPC Flow Logs
+resource "aws_iam_role" "vpc_flow_logs_role" {
+  name = "vpc-flow-logs-role"
+
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Effect = "Allow",
+        Principal = {
+          Service = "vpc-flow-logs.amazonaws.com"
+        },
+        Action = "sts:AssumeRole"
+      }
+    ]
+  })
+}
 resource "aws_iam_policy" "custom_vpc_flow_logs_policy" {
   name        = "CustomVPCFlowLogsPolicy"
   description = "Custom policy for VPC Flow Logs to write to CloudWatch Logs"
