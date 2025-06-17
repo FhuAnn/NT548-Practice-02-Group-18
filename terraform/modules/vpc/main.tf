@@ -17,19 +17,20 @@ resource "aws_vpc" "vpc" {
   }
 }
 
-# Thêm Flow Logging cho VPC - trivy fix
-resource "aws_flow_log" "vpc_flow_log" {
-  log_destination      = aws_cloudwatch_log_group.vpc_flow_log.arn # Hoặc S3 ARN nếu bạn muốn lưu vào S3
-  traffic_type         = "ALL" # Ghi lại tất cả lưu lượng (ingress và egress)
-  vpc_id               = aws_vpc.vpc.id
-  log_destination_type = "cloud-watch-logs" # Hoặc "s3" nếu bạn muốn lưu vào S3
-}
+# # Thêm Flow Logging cho VPC - trivy fix
+# resource "aws_flow_log" "vpc_flow_log" {
+#   log_destination      = aws_cloudwatch_log_group.vpc_flow_log.arn # Hoặc S3 ARN nếu bạn muốn lưu vào S3
+#   traffic_type         = "ALL" # Ghi lại tất cả lưu lượng (ingress và egress)
+#   vpc_id               = aws_vpc.vpc.id
+#   log_destination_type = "cloud-watch-logs" # Hoặc "s3" nếu bạn muốn lưu vào S3
+#   deliver_logs_permission_arn = aws_iam_role.vpc_flow_logs_role.arn # IAM Role cho Flow Logs
+# # }
 
-# Tạo Log Group nếu sử dụng CloudWatch - trivy fix
-resource "aws_cloudwatch_log_group" "vpc_flow_log" {
-  name = "/aws/vpc/flow-logs/${local.project_name}-vpc"
-  retention_in_days = 30 # Thời gian lưu trữ log (có thể thay đổi)
-}
+# # Tạo Log Group nếu sử dụng CloudWatch - trivy fix
+# resource "aws_cloudwatch_log_group" "vpc_flow_log" {
+#   name = "/aws/vpc/flow-logs/${local.project_name}-vpc"
+#   retention_in_days = 30 # Thời gian lưu trữ log (có thể thay đổi)
+# }
 
 
 resource "aws_subnet" "public_subnet" {
