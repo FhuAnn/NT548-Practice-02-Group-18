@@ -25,9 +25,9 @@ variable "private_subnet_cidr" {
 
 ### Variables for Security Group module
 variable "cidr_block" {
-  description = "Public IP from Internet that has permission to access the EC2 instance in public subnet"
+  description = "Public IP from Internet that has permission to access the EC2 instance in public subnet, access https://ifconfig.me to know"
   type        = string
-  default     = "192.168.1.137/32"
+  default     = "171.243.49.68/32"
 }
 
 ### Variables for EC2 module

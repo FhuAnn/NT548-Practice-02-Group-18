@@ -14,5 +14,5 @@ variable "vpc_id" {
 variable "cidr_block" {
   description = "Public IP from Internet that has permission to access the EC2 instance in public subnet"
   type        = string
-  default     = "192.168.1.137/32"
+  default     = "171.243.49.68/32"
 }
