@@ -20,11 +20,11 @@ resource "aws_security_group" "public_ssh-sg" {
   }
 
   egress {
-    from_port   = 0
-    to_port     = 0
+    from_port   = 22
+    to_port     = 22
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
-      description = "Allow all outbound traffic"
+    description = "Allow all outbound traffic"
   }
   tags = {
     Name = "${local.project_name}-public-ssh-sg"
@@ -42,8 +42,8 @@ resource "aws_security_group" "private_ssh-sg" {
   }
 
   egress {
-    from_port   = 0
-    to_port     = 0
+    from_port   = 22
+    to_port     = 22
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
