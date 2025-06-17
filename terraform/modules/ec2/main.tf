@@ -18,6 +18,10 @@ resource "aws_instance" "ec2_instance" {
     volume_type           = each.value.root_block_device.volume_type
     delete_on_termination = true
   }
+  metadata_options {
+  http_tokens = "required"
+  http_endpoint = "enabled"
+  }
   tags = merge(
     each.value.tags,
     {

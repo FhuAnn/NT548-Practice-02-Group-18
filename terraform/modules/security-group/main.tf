@@ -9,11 +9,14 @@ locals {
 resource "aws_security_group" "public_ssh-sg" {
   vpc_id      = var.vpc_id
   description = "Allow SSH to EC2 instances in public subnet from a specific IP address"
+  
   ingress {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
     cidr_blocks = [var.cidr_block]
+    description = "Allow SSH from specific IP"
+
   }
 
   egress {
@@ -21,6 +24,7 @@ resource "aws_security_group" "public_ssh-sg" {
     to_port     = 0
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
+      description = "Allow all outbound traffic"
   }
   tags = {
     Name = "${local.project_name}-public-ssh-sg"

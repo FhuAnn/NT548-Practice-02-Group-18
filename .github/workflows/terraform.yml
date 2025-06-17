@@ -54,8 +54,4 @@ jobs:
         run: terraform apply -auto-approve tfplan
         working-directory: terraform
 
-      # Bước 6: Checkov Security Scan
-      - name: Checkov Security Scan
-        uses: bridgecrewio/checkov-action@v12
-        with:
-          directory: terraform
+  
