@@ -37,7 +37,7 @@ variable "instances_configuration" {
     vpc_security_group_ids = ["sg-081bf0aadcfcca9c2"]
     subnet_id              = "subnet-0c43575fa4fd70b30"
     user_data_file         = "user-data.sh"
-    key_name               = "lab02-keypair-group18"
+    key_name               = "lab02-keypair"
     associate_elastic_ip   = true
     iam_instance_profile   = "ec2-role-instance-profile"
   }, # ✅ dấu phẩy đúng chỗ, sau object
@@ -55,7 +55,7 @@ variable "instances_configuration" {
     vpc_security_group_ids = ["sg-09101a2bfc271c21c"]
     subnet_id              = "subnet-00a06d04695510eb3"
     user_data_file         = null
-    key_name               = "lab02-keypair-group18"
+    key_name               = "lab02-keypair"
     associate_elastic_ip   = false
     iam_instance_profile   = null
   }

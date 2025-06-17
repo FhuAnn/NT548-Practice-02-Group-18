@@ -27,7 +27,7 @@ variable "private_subnet_cidr" {
 variable "cidr_block" {
   description = "Public IP from Internet that has permission to access the EC2 instance in public subnet"
   type        = string
-  default     = "14.169.43.244/32"
+  default     = "192.168.1.137/32"
 }
 
 ### Variables for EC2 module
@@ -63,7 +63,7 @@ variable "instances_configuration" {
     vpc_security_group_ids = null 
     subnet_id              = null 
     user_data_file         = "user-data.sh" # user data file name
-    key_name               = "lab02-keypair-group18" # ssh key pair name
+    key_name               = "lab02-keypair" # ssh key pair name
     associate_elastic_ip   = true # need assign elastic ip or not
     iam_instance_profile   = "ec2-role-instance-profile" # name of iam instance profile
     },
@@ -81,7 +81,7 @@ variable "instances_configuration" {
       vpc_security_group_ids = null 
       subnet_id              = null
       user_data_file         = null # user data file name - null = no user data
-      key_name               = "lab02-keypair-group18" # ssh key pair name
+      key_name               = "lab02-keypair" # ssh key pair name
       associate_elastic_ip   = false # need assign elastic ip or not
       iam_instance_profile   = null # name of iam instance profile - null = no iam instance profile
   }]
